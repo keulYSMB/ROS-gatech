@@ -1,0 +1,27 @@
+<launch>
+
+  <node pkg="blob_tracker_base" type="camshift.py" name="blob_tracker" >
+      <remap from="/vrep/visionSensor" to="/vrep/follower/visionSensor"/>
+  </node>
+
+  <node pkg="blob_tracker_base" type="control_follower.py" name="blob_follow" output="screen">
+     <!-- <remap from="/blobimage" to="/blob_tracker/blob"/> -->
+      <remap from="/blob_follower/info" to="/vrep/follower/visionSensorInfo"/>
+      <remap from="/blob_follower/twistOut" to="/vrep/follower/twistCommand"/>
+  </node>
+
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="turtle_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+  </node>
+
+  <!-- Axes -->
+  <param name="axis_linear" value="1" type="int"/>
+  <param name="axis_angular" value="0" type="int"/>
+  <param name="scale_linear" value="1" type="double"/>
+  <param name="scale_angular" value="1" type="double"/>
+
+  <node pkg="blob_tracker_base" type="blob_tracker_base" name="joyBlob"/>
+
+</launch>

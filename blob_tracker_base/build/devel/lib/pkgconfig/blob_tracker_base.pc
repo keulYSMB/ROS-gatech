@@ -1,0 +1,8 @@
+prefix=/home/group11/fuerte_workspace/src/blob_tracker_base/build/devel
+
+Name: blob_tracker_base
+Description: Description of blob_tracker_base
+Version: 0.0.0
+Cflags: -I/opt/ros/groovy/include/opencv -I/opt/ros/groovy/include
+Libs: -L/home/group11/fuerte_workspace/src/blob_tracker_base/build/devel/lib 
+Requires: roscpp rospy std_msgs

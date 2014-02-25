@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "blob_tracker_base")
+set(blob_tracker_base_MAINTAINER "group11 <group11@todo.todo>")
+set(blob_tracker_base_DEPRECATED "")
+set(blob_tracker_base_VERSION "0.0.0")
+set(blob_tracker_base_BUILD_DEPENDS "message_generation" "roscpp" "rospy" "std_msgs")
+set(blob_tracker_base_RUN_DEPENDS "message_runtime" "roscpp" "rospy" "std_msgs")
+set(blob_tracker_base_BUILDTOOL_DEPENDS "catkin")

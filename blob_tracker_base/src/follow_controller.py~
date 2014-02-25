@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+import roslib
+roslib.load_manifest('blob_tracker_base')
+
+import rospy
+from sensor_msgs.msg import RegionOfInterest
+from sensor_msgs.msg import CameraInfo
+from geometry_msgs.msg import Twist
+
+
+class BlobFollower:
+    def __init__(self):
+        self.blob = None
+        self.info = None
+		self.twist = Twist() 
+        rospy.init_node('blob_follow')
+        self.pub = rospy.Publisher("~twistOut",Twist)
+        rospy.Subscriber("blobimage",RegionOfInterest,self.store_blob)
+        rospy.Subscriber("~info",CameraInfo,self.store_info)
+		self.xcenterImage=128
+		self.ycenterImage=128
+
+    def store_blob(self,blob):
+        self.blob = blob
+		self.compute_traj
+
+	def compute_traj(self):
+		xcenterleader = blob.x_offset+height/2
+		ycenterleader = blob.y_offset+width/2
+		xdiff = self.xcenterImage-xcenterleader
+		ydiff = self.ycenterImage-ycenterleader
+		self.twist.angular.x = ydiff/self.ycenterImage
+		self.twist.linear.z= xdiff/self.xcenterImage
+		
+    def store_info(self,info):
+        self.info = info
+
+    def run(self):
+        rospy.loginfo("Waiting for first blob and camera info")
+        t = Twist()
+        rate = rospy.Rate(10)
+        while (not rospy.is_shutdown()) and ((not self.info) or (not self.blob)):
+			rospy.loginfo("loop not info not blob")
+            #self.pub.publish(t)
+            rate.sleep()
+        while not rospy.is_shutdown():
+			rospy.loginfo("loop not suhtdowm")
+            self.pub.publish(self.twist)
+            rate.sleep()
+
+if __name__=="__main__":
+    demo = BlobFollower()
+    demo.run()
