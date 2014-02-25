@@ -1,0 +1,32 @@
+<launch>
+
+ <node pkg="floor_mapping" type="camshift.py" name="blob_tracker" output = "screen"> 
+       <remap from="/vrep/visionSensor" to="/vrep/follower/visionSensor"/>
+   </node> 
+
+ <node respawn="true" pkg="joy"
+        type="joy_node" name="turtle_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+  </node>
+
+  <!-- Axes -->
+  <param name="axis_linear" value="1" type="int"/>
+  <param name="axis_angular" value="0" type="int"/>
+  <param name="scale_linear" value="1" type="double"/>
+  <param name="scale_angular" value="1" type="double"/>
+
+  <node pkg="floor_mapping" type="blob_tracker_base" name="joyBlob">
+	<remap from="/vrep/leader/twistCommand" to="/vrep/follower/twistCommand"/>
+  </node>
+
+  <node pkg="floor_mapping" type="floor_projector.py" name="floor_projector" output="screen">
+      <param name="floor_size_pix" value="500"/>
+      <param name="horizon_offset_pix" value="20"/>
+      <param name="floor_size_meter" value="5.0"/>
+      <param name="target_frame" value="/follower"/>
+      <remap from="/floor_projector/probabilities" to="/probability"/>
+      <remap from="/floor_projector/info" to="/vrep/follower/visionSensorInfo"/>
+  </node>
+
+</launch>
