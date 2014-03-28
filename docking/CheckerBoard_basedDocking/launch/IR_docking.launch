@@ -1,0 +1,7 @@
+<launch>
+    <include file="/opt/ros/hydro/share/turtlebot_bringup/launch/minimal.launch"/>
+    <include file="/opt/ros/hydro/share/turtlebot_teleop/launch/logitech.launch"/>
+    <include file="/opt/ros/hydro/share/kobuki_auto_docking/launch/minimal.launch"/>
+    <include file="/opt/ros/hydro/share/kobuki_auto_docking/launch/activate.launch"/>
+
+</launch>

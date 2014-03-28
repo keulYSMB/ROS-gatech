@@ -1,0 +1,40 @@
+	'''self.ex=self.ex-0.6
+		if(self.ey*self.etheta>0):
+			thetatogoal = atan2(self.ey+0.1*self.etheta,self.ex)
+		else:
+			thetatogoal = atan2(self.ey-0.1*self.etheta,self.ex)
+			
+		#print "thetatogoal = "+str(thetatogoal) + "  currenttheta" + str(theta)	
+	        #twist.angular.z=sat(self.k_alpha*norm_angle(thetatogoal-theta),self.max_rot_speed)
+		twist.angular.z=sat(self.k_alpha*norm_angle(thetatogoal),self.max_rot_speed)
+		if(self.ex >0):
+			twist.linear.x =sat(self.k_v*(hypot(self.ex,self.ey)),self.max_speed)
+		else:
+			twist.linear.x =-sat(self.k_v*(hypot(self.ex,self.ey)),self.max_speed)
+			
+		if((hypot(self.ex,self.ey))<0.01):
+		    twist.linear.x=0
+		    twist.angular.z = 0
+		    self.state=2
+		    print "state now equal to = " + str(self.state) + "\n"
+		    #twist.angular.z=sat(self.k_alpha*norm_angle(thetatogoal),self.max_rot_speed)
+		    #if(abs(norm_angle(thetatogoal))<0.01):
+		#	twist.angular.z=0
+		print "twist angular" + str(twist.angular.z) + "  linear" + str(twist.linear.x)
+		#twist.angular.z =0
+ 		#twist.linear.x =0
+	elif self.state==2:
+		self.k_alpha=8
+		twist.angular.z=sat(self.k_alpha*norm_angle(self.etheta),self.max_rot_speed)
+		print "state = 2\n etheta =" +str(self.etheta) + "  angular twist : " + str(twist.angular.z)		
+		if(abs(norm_angle(self.etheta))<0.005):
+			twist.angular.z=0
+			twist.linear.x=0
+			self.state=3
+	elif self.state==3:
+		self.k_v = 1
+		self.ex=self.ex-0.38
+		twist.linear.x =sat(self.k_v*(hypot(self.ex,self.ey)),self.max_speed)
+		if((hypot(self.ex,self.ey))<0.01):
+		    twist.linear.x=0
+	'''

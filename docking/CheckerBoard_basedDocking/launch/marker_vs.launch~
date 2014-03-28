@@ -1,0 +1,33 @@
+<launch>
+
+    <include file="/opt/ros/hydro/share/turtlebot_bringup/launch/minimal.launch"/>
+    <include file="/opt/ros/hydro/share/openni_launch/launch/openni.launch"/>
+    <include file="/opt/ros/hydro/share/turtlebot_teleop/launch/logitech.launch"/>
+    <include file="/home/turtlebot/vrep_ros_ws/src/ar_mapping_base/launch/ar.launch"/>
+
+
+
+    <node pkg="cb_vs_base" type="marker_vs2.py" name="marker_vs" output="screen">
+        <param name="ref_button" value="3"/>
+	<param name="body_frame" value="/ar_marker_0"/>
+	<param name="reference_frame" value="/base_link"/> 
+        <param name="max_rot_speed" value="0.3"/>
+	<param name="max_speed" value="0.2"/>
+	<param name="intermediateDist" value="0.6"/> 
+	<param name="distanceEnterDockingPhase" value="0.5"/> 
+	<param name="distanceMarkerDockingStation" value="0.37"/> 
+	<param name="max_y_error" value="0.4"/> 
+	<param name="k_y" value="12"/> 
+	<param name="k_theta" value="5"/> 
+	<param name="k_v" value="1"/> 
+
+
+        <remap from="/cb_vs/joy" to="/joy"/>
+        <remap from="/cb_vs/cb" to="/ar_pose_marker"/> 
+        <remap from="/cb_vs/info" to="/camera/rgb/camera_info"/>
+        <remap from="/cb_vs/twistCommand" to="/cmd_vel_mux/input/navi"/>
+     </node>
+<!--
+	<node pkg="cb_vs_base" type="new_depth.py" name="depth" output="screen"/>
+-->
+</launch>

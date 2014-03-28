@@ -1,0 +1,7 @@
+<launch>
+    <include file="/opt/ros/hydro/share/turtlebot_bringup/launch/minimal.launch"/>
+    <include file="/opt/ros/hydro/share/openni_launch/launch/openni.launch"/>
+    <include file="/opt/ros/hydro/share/turtlebot_teleop/launch/logitech.launch"/>
+    <include file="/home/turtlebot/vrep_ros_ws/src/ar_mapping_base/launch/ar.launch"/>
+
+</launch>
